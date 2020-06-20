@@ -1,1 +1,1 @@
-stow --adopt -vSt ~ *
+```stow --adopt -vSt ~ *```
