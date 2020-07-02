@@ -62,6 +62,7 @@ set clipboard=unnamedplus
 set softtabstop=2
 set autoindent
 set nohlsearch
+set nowrap
 set hidden
 " set splitbelow
 set tabstop=2 shiftwidth=2 expandtab
@@ -150,6 +151,12 @@ imap qq <Esc> :q!<CR>
 " nnoremap <leader>grr :Gread<CR>
 " rename current file
 nmap <leader>vv :Gmove<space>
+nnoremap <F4> :Gstatus<CR>
+nnoremap <F5> :Gwrite<CR>
+nnoremap <F6> :Git add .<CR>
+nnoremap <F7> :Gcommit<CR>
+nnoremap <F8> :Gpush<CR>
+nnoremap <F9> :Gpull<CR>
 
 " RSpec.vim mappings
 map <Leader>c :call RunCurrentSpecFile()<CR>
