@@ -80,7 +80,8 @@ let g:indentLine_color_term = 239
 let g:ale_echo_cursor = 0
 let g:indentLine_char = '┊'
 let g:highlightedyank_highlight_duration = 200 " Yank highlighting
-let g:coc_global_extensions = [ 'coc-solargraph', 'coc-highlight', 'coc-css', 'coc-eslint', 'coc-html', 'coc-pairs', 'coc-angular', 'coc-tsserver']
+let g:coc_global_extensions = [ 'coc-solargraph', 'coc-highlight', 'coc-css', 'coc-eslint', 'coc-html', 'coc-pairs', 'coc-prettier', 'coc-angular', 'coc-tsserver']
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 if has('folding')
   if has('windows')
     set fillchars=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
@@ -188,7 +189,14 @@ nnoremap <Leader>t :terminal<CR>
 nmap <silent> <C-G> :!ctags -R .<cr>
 
 ""NERD Tree helpers
-nnoremap <F2> :NERDTreeToggle<CR>
+let g:nerdtree_tabs_open_on_console_startup=1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeWinSize = 40
+let g:NERDTreeDirArrows = 0
+let NERDTreeShowHidden=1
+let g:nerdtree_tabs_focus_on_files = 1
+let g:nerdtree_tabs_autoclose = 1
+noremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :NERDTreeFind<CR>
 
 " remap zero to go to start of code line
