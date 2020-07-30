@@ -77,6 +77,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_ruby_checkers = ['rubocop']
 let g:indentLine_color_term = 239
+let g:ale_echo_cursor = 0
 let g:indentLine_char = '┊'
 let g:highlightedyank_highlight_duration = 200 " Yank highlighting
 let g:coc_global_extensions = [ 'coc-solargraph', 'coc-highlight', 'coc-css', 'coc-eslint', 'coc-html', 'coc-pairs', 'coc-angular', 'coc-tsserver']
