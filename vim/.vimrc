@@ -12,15 +12,17 @@ Plug 'Yggdroot/indentLine'
 Plug 'andrewradev/splitjoin.vim'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
-Plug 'machakann/vim-highlightedyank'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dense-analysis/ale'
 Plug 'dyng/ctrlsf.vim'
 Plug 'gregsexton/MatchTag'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-user'
+Plug 'machakann/vim-highlightedyank'
 Plug 'mileszs/ack.vim'
 Plug 'msanders/snipmate.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -69,7 +71,7 @@ set tabstop=2 shiftwidth=2 expandtab
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
 let g:vimrubocop_config = "/home/big/patterns/.rubocop.yml"
 
-let g:ctrlp_custom_ignore = 'coverage'
+" let g:ctrlp_custom_ignore = 'coverage'
 
 let g:airline_powerline_fonts = 1
 let g:javascript_plugin_flow = 1
@@ -192,7 +194,6 @@ let g:nerdtree_tabs_open_on_console_startup=1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize = 40
 let g:NERDTreeDirArrows = 0
-let NERDTreeShowHidden=1
 let g:nerdtree_tabs_focus_on_files = 1
 let g:nerdtree_tabs_autoclose = 1
 noremap <F2> :NERDTreeToggle<CR>
@@ -230,6 +231,9 @@ endif
 cnoreabbrev Ack Ack!
 nnoremap <Leader>ff :Ack!<Space>
 nnoremap <Leader>fw yiw:Ack! <C-r>0
+"fzf
+noremap <C-p> :Files<Cr>
+let g:fzf_preview_window = ''
 
 " to use fast shich splited windows
 nnoremap <C-J> <C-W><C-J>
