@@ -8,3 +8,6 @@ Session.vim
 *~
 tags
 gems.tags
+
+vim/.vim/plugged/
+vim/.vim/bundle/
