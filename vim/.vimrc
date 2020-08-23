@@ -4,8 +4,9 @@ set wildmenu
 
 call plug#begin('~/.vim/plugged')
 
-" plugins
 " Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'scrooloose/syntastic'
+" plugins
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'VundleVim/Vundle.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -29,7 +30,6 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ngmy/vim-rubocop'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-commentary'
