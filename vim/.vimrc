@@ -5,6 +5,7 @@ set wildmenu
 call plug#begin('~/.vim/plugged')
 
 " plugins
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'VundleVim/Vundle.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -12,7 +13,6 @@ Plug 'Yggdroot/indentLine'
 Plug 'andrewradev/splitjoin.vim'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
-" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'dense-analysis/ale'
 Plug 'dyng/ctrlsf.vim'
 Plug 'gregsexton/MatchTag'
@@ -36,6 +36,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
+Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'unblevable/quick-scope'
 Plug 'vim-ruby/vim-ruby'
@@ -69,6 +70,7 @@ set hidden
 " set splitbelow
 set tabstop=2 shiftwidth=2 expandtab
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+
 let g:vimrubocop_config = "/home/big/patterns/.rubocop.yml"
 
 " let g:ctrlp_custom_ignore = 'coverage'
