@@ -281,4 +281,14 @@ function! Marks()
 endfunction
 noremap <leader>m :call Marks()<CR>
 
+function! PutDebugger()
+  if &ft=='ruby'
+    normal! Obinding.pry
+  endif
+  if &ft=='javascript'
+    normal! Odebugger
+  endif
+endfunction
+noremap <leader>db :call PutDebugger()<CR>
+
 autocmd BufWritePre * %s/\s\+$//e
