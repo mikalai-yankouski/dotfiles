@@ -157,7 +157,7 @@ imap qq <Esc> :q!<CR>
 " nnoremap <leader>grr :Gread<CR>
 " rename current file
 nmap <leader>vv :Gmove<space>
-nnoremap <F4> :Gstatus<CR>
+nnoremap <F4> :Gstatus<CR><C-W><S-T>
 nnoremap <F5> :Gwrite<CR>
 nnoremap <F6> :Git add .<CR>
 nnoremap <F7> :Gcommit<CR>
