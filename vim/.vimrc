@@ -156,7 +156,7 @@ imap qq <Esc> :q!<CR>
 " nnoremap <leader>grm :Gremove<CR>
 " nnoremap <leader>grr :Gread<CR>
 " rename current file
-nmap <leader>vv :Gmove<space>
+" nmap <leader>vv :Gmove<space>
 nnoremap <F4> :Gstatus<CR><C-W><S-T>
 nnoremap <F5> :Gwrite<CR>
 nnoremap <F6> :Git add .<CR>
@@ -173,19 +173,20 @@ nnoremap <Enter> @@
 " fast switch between last two files in buffer
 noremap <Leader><Leader> <C-^>
 " show current file path
-nnoremap <Leader>p :echo expand('%')<CR>
+nnoremap <Leader>e :echo expand('%')<CR>
 " quit from the file
 nnoremap <Leader>q :quit<CR>
 " save file
 nnoremap <Leader>w :write<CR>
+" show current file path
+nnoremap <Leader>v o<C-r>0<Esc>
+nnoremap <Leader>V O<C-r>0<Esc>
 " show buffers
 nnoremap <Leader>bb :buffers<CR>:buffer<Space>
 nnoremap <Leader>bn :bnext<CR>
 nnoremap <Leader>bv :bprevious<CR>
 
 nnoremap <Leader>x :xit<CR>
-" create new file
-nnoremap <Leader>e :edit <C-R>=expand('%:p:h') . '/'<CR>
 " open terminal
 nnoremap <Leader>t :terminal<CR>
 
