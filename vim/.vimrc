@@ -289,6 +289,6 @@ function! PutDebugger()
     normal! Odebugger
   endif
 endfunction
-noremap <leader>db :call PutDebugger()<CR>
+noremap <leader>db :call PutDebugger()<CR>:w<CR>
 
 autocmd BufWritePre * %s/\s\+$//e
