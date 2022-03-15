@@ -12,6 +12,7 @@ Plug 'VundleVim/Vundle.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Yggdroot/indentLine'
 Plug 'andrewradev/splitjoin.vim'
+Plug 'ap/vim-css-color'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'dense-analysis/ale'
@@ -19,6 +20,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'gregsexton/MatchTag'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-line'
@@ -122,6 +124,12 @@ colorscheme gruvbox
 set background=dark
 :highlight Normal ctermbg=None
 highlight LineNr ctermbg=None
+"
+" set background=dark
+" set termguicolors
+" colorscheme deep-space
+" let g:deepspace_italics=1
+" let g:airline_theme='deep_space'
 
 " ruby surround
 let g:surround_{char2nr('%')} = "%(\r)"
@@ -245,7 +253,7 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 nnoremap <C-T> <C-W><S-T>
-" nnoremap gf <C-W>gf
+" nnoremap gf <C-W>v<C-W><C-L>gf
 nnoremap g] <C-W>g]
 " resize current buffer by +/- 5
 nnoremap <C-right> :vertical resize +3<cr>
