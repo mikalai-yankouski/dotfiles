@@ -63,7 +63,8 @@ set cursorline
 set colorcolumn=120
 set laststatus=2
 set shiftwidth=2
-set clipboard=unnamedplus
+" vim-gnome for Ubuntu
+set clipboard=unnamed
 set softtabstop=2
 set autoindent
 set nohlsearch
@@ -117,7 +118,7 @@ if has('linebreak')
 endif
 
 " Color Scheme
-set guifont=Droid\ Sans\ Mono\ 12
+set guifont=Droid\ Sans\ Mono\ 14
 let g:seoul256_background = 236
 :highlight CursorLine ctermbg=239
 colorscheme gruvbox
@@ -189,8 +190,8 @@ nnoremap <Leader>w :write<CR>
 " show current file path
 nnoremap <Leader>v o<C-r>0<Esc>
 nnoremap <Leader>V O<C-r>0<Esc>
-" show buffers
-nnoremap <Leader>bb :buffers<CR>:buffer<Space>
+" show buffers :buffer<Space>
+nnoremap <Leader>bb :Buffers<CR>
 nnoremap <Leader>bn :bnext<CR>
 nnoremap <Leader>bv :bprevious<CR>
 
@@ -201,13 +202,17 @@ nnoremap <Leader>t :terminal<CR>
 " update Ctags
 nmap <silent> <C-G> :!ctags -R .<cr>
 
-""NERD Tree helpers
+"NERD Tree helpers
 let g:nerdtree_tabs_open_on_console_startup=1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize = 40
 let g:NERDTreeDirArrows = 0
 let g:nerdtree_tabs_focus_on_files = 1
 let g:nerdtree_tabs_autoclose = 1
+
+"FZF helpers
+let g:fzf_layout = { 'down':  '40%'}
+
 noremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :NERDTreeFind<CR>
 
