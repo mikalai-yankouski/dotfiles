@@ -74,7 +74,7 @@ set hidden
 set tabstop=2 shiftwidth=2 expandtab
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
 
-let g:vimrubocop_config = "/home/big/patterns/.rubocop.yml"
+let g:vimrubocop_config = "/Users/myankouski/.rubocop.yml"
 
 " let g:ctrlp_custom_ignore = 'coverage'
 
@@ -86,9 +86,22 @@ let g:syntastic_ruby_checkers = ['rubocop']
 let g:indentLine_color_term = 239
 let g:ale_echo_cursor = 1
 let g:indentLine_char = '┊'
+let g:vim_json_conceal=0
 let g:highlightedyank_highlight_duration = 200 " Yank highlighting
 let g:coc_global_extensions = [ 'coc-solargraph', 'coc-highlight', 'coc-css', 'coc-eslint', 'coc-html', 'coc-pairs', 'coc-prettier', 'coc-angular', 'coc-tsserver']
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
+" use <tab> to trigger completion and navigate to the next complete item
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+
 if has('folding')
   if has('windows')
     set fillchars=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
@@ -108,6 +121,7 @@ let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_disabled_filetypes = ['html', 'slim', 'erb', 'md']
 
 set list
+set backspace=indent,eol,start
 set listchars=nbsp:⦸
 set listchars+=tab:▷┅
 set listchars+=extends:»
@@ -249,7 +263,7 @@ cnoreabbrev Ack Ack!
 nnoremap <Leader>ff :Ack!<Space>
 nnoremap <Leader>fw yiw:Ack! <C-r>0
 "fzf
-noremap <C-p> :Files<Cr>
+noremap <C-p> :GFiles<Cr>
 let g:fzf_preview_window = ''
 
 " to use fast shich splited windows
