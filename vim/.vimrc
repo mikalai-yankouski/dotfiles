@@ -4,9 +4,9 @@ set wildmenu
 
 call plug#begin('~/.vim/plugged')
 
+" plugins
 " Plug 'ctrlpvim/ctrlp.vim'
 " Plug 'scrooloose/syntastic'
-" plugins
 Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'VundleVim/Vundle.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -15,6 +15,7 @@ Plug 'andrewradev/splitjoin.vim'
 Plug 'ap/vim-css-color'
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
+Plug 'cespare/vim-toml', { 'branch': 'main' }
 Plug 'dense-analysis/ale'
 Plug 'dyng/ctrlsf.vim'
 Plug 'gregsexton/MatchTag'
@@ -60,11 +61,11 @@ let mapleader=" "
 set nu rnu
 set ruler
 set cursorline
+set guicursor=n-v-c-i:block
 set colorcolumn=120
 set laststatus=2
 set shiftwidth=2
-" vim-gnome for Ubuntu
-set clipboard=unnamed
+set clipboard=unnamedplus
 set softtabstop=2
 set autoindent
 set nohlsearch
@@ -74,39 +75,33 @@ set hidden
 set tabstop=2 shiftwidth=2 expandtab
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
 
-let g:vimrubocop_config = "/Users/myankouski/.rubocop.yml"
 
 " let g:ctrlp_custom_ignore = 'coverage'
 
+let g:vimrubocop_config = '/home/big/patterns/.rubocop.yml'
 let g:airline_powerline_fonts = 1
 let g:javascript_plugin_flow = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_ruby_checkers = ['rubocop']
 let g:indentLine_color_term = 239
-let g:ale_echo_cursor = 1
 let g:indentLine_char = '┊'
 let g:vim_json_conceal=0
 let g:highlightedyank_highlight_duration = 200 " Yank highlighting
 let g:coc_global_extensions = [ 'coc-solargraph', 'coc-highlight', 'coc-css', 'coc-eslint', 'coc-html', 'coc-pairs', 'coc-prettier', 'coc-angular', 'coc-tsserver']
-" use <tab> to trigger completion and navigate to the next complete item
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 if has('folding')
   if has('windows')
     set fillchars=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
   endif
 endif
+
+" What do we use for linting
+let g:ale_echo_cursor = 1
+let g:ale_linters = {
+\ 'javascript': ['eslint'],
+\ 'ruby': ['rubocop']
+\}
+let g:ale_linters_explicit = 1
+let g:ale_sign_error = '\u2022'
+let g:ale_sign_warning = '\u2022'
 
 " Trigger quickscope highlight only when pressing f and F.
 let g:qs_highlight_on_keys = ['f', 'F']
@@ -115,13 +110,15 @@ highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=und
 
 " syntax
 syntax on
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+" let g:syntastic_ruby_checkers = ['rubocop']
 let g:syntastic_enable_signs = 1
 let g:syntastic_error_symbol = '✗'
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_disabled_filetypes = ['html', 'slim', 'erb', 'md']
 
 set list
-set backspace=indent,eol,start
 set listchars=nbsp:⦸
 set listchars+=tab:▷┅
 set listchars+=extends:»
@@ -132,7 +129,7 @@ if has('linebreak')
 endif
 
 " Color Scheme
-set guifont=Droid\ Sans\ Mono\ 14
+set guifont=Droid\ Sans\ Mono\ 12
 let g:seoul256_background = 236
 :highlight CursorLine ctermbg=239
 colorscheme gruvbox
@@ -204,8 +201,8 @@ nnoremap <Leader>w :write<CR>
 " show current file path
 nnoremap <Leader>v o<C-r>0<Esc>
 nnoremap <Leader>V O<C-r>0<Esc>
-" show buffers :buffer<Space>
-nnoremap <Leader>bb :Buffers<CR>
+" show buffers
+nnoremap <Leader>bb :buffers<CR>:buffer<Space>
 nnoremap <Leader>bn :bnext<CR>
 nnoremap <Leader>bv :bprevious<CR>
 
@@ -216,20 +213,17 @@ nnoremap <Leader>t :terminal<CR>
 " update Ctags
 nmap <silent> <C-G> :!ctags -R .<cr>
 
-"NERD Tree helpers
+""NERD Tree helpers
 let g:nerdtree_tabs_open_on_console_startup=1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize = 40
 let g:NERDTreeDirArrows = 0
 let g:nerdtree_tabs_focus_on_files = 1
 let g:nerdtree_tabs_autoclose = 1
-
-"FZF helpers
-let g:fzf_layout = { 'down':  '40%'}
-
 noremap <F2> :NERDTreeToggle<CR>
 nnoremap <F3> :NERDTreeFind<CR>
-
+"FZF helpers
+let g:fzf_layout = { 'down':  '40%'}
 " remap zero to go to start of code line
 nnoremap 0 ^
 nnoremap ^ 0
