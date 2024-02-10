@@ -97,11 +97,11 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias svim='nvm use 18 && sudo -E vim'
-alias vim='nvm use 18 && vim'
-alias foreman='nvm use 11 && foreman'
-alias cs='colima start --cpu 1 && docker start oracle-dev'
+alias vim='nvim'
+alias svim='sudo -E nvim'
 
+alias rs='RAILS_SERVE_STATIC_FILES=true DATABASE_USERNAME=postgres DATABASE_PASSWORD=password ACTIVE_STORAGE=local rails s -e production'
+alias rc='RAILS_SERVE_STATIC_FILES=true DATABASE_USERNAME=postgres DATABASE_PASSWORD=password ACTIVE_STORAGE=local rails c -e production'
 # Make CTRL-Z background things and unbackground them.
 function fg-bg() {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -115,13 +115,16 @@ bindkey '^Z' fg-bg
 
 # export go-lang
 
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+# export GOROOT=/usr/local/go
+# export GOPATH=$HOME/go
+# export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export NLS_LANG="American_America.UTF8"
-export PATH="${HOME}/.pyenv/shims:${PATH}"
-export PATH="${HOME}/.pyenv/shims:${PATH}"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
