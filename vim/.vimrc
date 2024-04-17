@@ -2,15 +2,17 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 set wildmenu
 
-" plugins
 call plug#begin('~/.vim/plugged')
 
+" Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'scrooloose/syntastic'
+" plugins
 Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'VundleVim/Vundle.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'Yggdroot/indentLine'
 Plug 'andrewradev/splitjoin.vim'
 Plug 'ap/vim-css-color'
-Plug 'cespare/vim-toml', { 'branch': 'main' }
 Plug 'christoomey/vim-sort-motion'
 Plug 'christoomey/vim-system-copy'
 Plug 'dense-analysis/ale'
@@ -18,6 +20,7 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'gregsexton/MatchTag'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'tyrannicaltoucan/vim-deep-space'
 Plug 'kana/vim-textobj-entire'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-line'
@@ -29,6 +32,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ngmy/vim-rubocop'
 Plug 'pangloss/vim-javascript'
 Plug 'scrooloose/nerdtree'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'thoughtbot/vim-rspec'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -41,34 +45,86 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'wincent/loupe'
 
+
 " Color schemes
 Plug 'morhetz/gruvbox'
+Plug 'arcticicestudio/nord-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-call plug#end()              " required
+call plug#end()            " required
 filetype plugin indent on    " required
 
 let mapleader=" "
 
-syntax on
 set nu rnu
 set ruler
-set mouse=a
 set cursorline
-set noswapfile
-set scrolloff=7
 set guicursor=n-v-c-i:block
 set colorcolumn=120
 set laststatus=2
 set shiftwidth=2
+" vim-gnome for Ubuntu
 set clipboard=unnamedplus
 set softtabstop=2
 set autoindent
 set nohlsearch
 set nowrap
 set hidden
+" set splitbelow
 set tabstop=2 shiftwidth=2 expandtab
 set statusline=%t[%{strlen(&fenc)?&fenc:'none'},%{&ff}]%h%m%r%y%=%c,%l/%L\ %P
+
+let g:vimrubocop_config = "/Users/myankouski/.rubocop.yml"
+
+" let g:ctrlp_custom_ignore = 'coverage'
+
+let g:airline_powerline_fonts = 1
+let g:javascript_plugin_flow = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_ruby_checkers = ['rubocop']
+let g:indentLine_color_term = 239
+let g:ale_echo_cursor = 1
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_save = 1
+let g:indentLine_char = '┊'
+let g:vim_json_conceal=0
+let g:highlightedyank_highlight_duration = 200 " Yank highlighting
+let g:coc_global_extensions = [ 'coc-solargraph', 'coc-highlight', 'coc-css', 'coc-eslint', 'coc-html', 'coc-pairs', 'coc-prettier', 'coc-angular', 'coc-tsserver']
+" use <tab> to trigger completion and navigate to the next complete item
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+
+if has('folding')
+  if has('windows')
+    set fillchars=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
+  endif
+endif
+
+" Trigger quickscope highlight only when pressing f and F.
+let g:qs_highlight_on_keys = ['f', 'F']
+highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
+highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
+
+" syntax
+syntax on
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = '✗'
+let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_disabled_filetypes = ['html', 'slim', 'erb', 'md']
+
 set list
+set backspace=indent,eol,start
 set listchars=nbsp:⦸
 set listchars+=tab:▷┅
 set listchars+=extends:»
@@ -78,65 +134,26 @@ if has('linebreak')
   let &showbreak='⤷ '
 endif
 
-
-" other settings
-let g:vimrubocop_config = '/home/big/patterns/.rubocop.yml'
-let g:airline_powerline_fonts = 1
-let g:javascript_plugin_flow = 1
-let g:indentLine_color_term = 239
-let g:indentLine_char = '┊'
-let g:vim_json_conceal=0
-let g:highlightedyank_highlight_duration = 200 " Yank highlighting
-
-
 " Color Scheme
-set guifont=Fira\ Code
+set guifont=Droid\ Sans\ Mono\ 14
 let g:seoul256_background = 236
 :highlight CursorLine ctermbg=239
 colorscheme gruvbox
 set background=dark
 :highlight Normal ctermbg=None
 highlight LineNr ctermbg=None
-
-
-" NERD Tree helpers
-let g:nerdtree_tabs_open_on_console_startup=1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeWinSize = 40
-let g:NERDTreeDirArrows = 0
-let g:nerdtree_tabs_focus_on_files = 1
-let g:nerdtree_tabs_autoclose = 1
-noremap <F2> :NERDTreeToggle<CR>
-nnoremap <F3> :NERDTreeFind<CR>
-
-
-" What do we use for linting
-let g:ale_echo_cursor = 1
-let g:ale_linters = { 'javascript': ['eslint'], 'ruby': ['rubocop'] }
-let g:ale_linters_explicit = 1
-let g:ale_sign_error = '\u2022'
-let g:ale_sign_warning = '\u2022'
-
-" Trigger quickscope highlight only when pressing f and F.
-let g:qs_highlight_on_keys = ['f', 'F']
-highlight QuickScopePrimary guifg='#afff5f' gui=underline ctermfg=155 cterm=underline
-highlight QuickScopeSecondary guifg='#5fffff' gui=underline ctermfg=81 cterm=underline
-
+"
+" set background=dark
+" set termguicolors
+" colorscheme deep-space
+" let g:deepspace_italics=1
+" let g:airline_theme='deep_space'
 
 " ruby surround
 let g:surround_{char2nr('%')} = "%(\r)"
 let g:surround_{char2nr('w')} = "%w(\r)"
 let g:surround_{char2nr('#')} = "#{\r}"
 let g:surround_{char2nr('|')} = "|\r|"
-
-
-" to use fast shich splited windows
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-nnoremap <C-T> <C-W><S-T>
-nnoremap g] <C-W>g]
 
 " tabs movement
 nnoremap th :tabfirst<CR>
@@ -146,80 +163,129 @@ nnoremap tl :tablast<CR>
 nnoremap td :tabclose<CR>
 nnoremap tn :tabnew<CR>
 
-" resize current buffer by +/- 3
-nnoremap <C-right> :vertical resize +3<cr>
-nnoremap <C-down> :resize +3<cr>
-nnoremap <C-up> :resize -3<cr>
-nnoremap <C-left> :vertical resize -3<cr>
-
-
 " quits from insert mode
 imap jj <Esc> :w<CR>
 imap qq <Esc> :q!<CR>
 
-noremap Y y$                                  " Make yank similar behavier
-noremap <Leader><Leader> <C-^>                " fast switch between last two files in buffer
-nnoremap <Enter> @@                           " repeat last script
-nnoremap <Leader>e :echo expand('%')<CR>      " show current file path
-nnoremap <Leader>q :quit<CR>                  " quit from the file
-nnoremap <Leader>w :write<CR>                 " save file
-nnoremap <Leader>v o<C-r>0<Esc>               " insert AFTER current line
-nnoremap <Leader>V O<C-r>0<Esc>               " insert BEFORE current line
-nnoremap == <S-v>=                            " line identation
-" remap zero to go to start of code line
-nnoremap 0 ^
-nnoremap ^ 0
-" Store relative line number jumps in the jumplist if they exceed a threshold.
-nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
-nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
-" substition helpers
-nnoremap <leader>sub yiw:%s/<C-r>0//g<left><left>
-vnoremap <leader>sub :s///g<left><left><left>
-nnoremap c* *Ncgn
-
-map <Leader>c :call RunCurrentSpecFile()<CR>  " RSpec.vim mappings
-nmap <silent> <C-G> :!ctags -R .<cr>          " update Ctags
-
+" git
+" nnoremap <leader>gst :Gstatus<CR>
+" nnoremap <leader>gd :Gdiff<CR>
+" nnoremap <leader>gg :Gwrite<CR>
+" nnoremap <leader>ga :Git add .<CR>
+" nnoremap <leader>gc :Gcommit<CR>
+" nnoremap <leader>ghh :Git checkout<space>
+" nnoremap <leader>gp :Gpush<CR>
+" nnoremap <leader>gl :Gpull<CR>
+" nnoremap <leader>gmd :Gmerge developer<CR>
+" nnoremap <leader>gms :Gmerge staging<CR>
+" nnoremap <leader>gmv :Gmove<space>
+" nnoremap <leader>grm :Gremove<CR>
+" nnoremap <leader>grr :Gread<CR>
+" rename current file
+" nmap <leader>vv :Gmove<space>
 nnoremap <F4> :Git status<CR><C-W><S-T>
-nnoremap <F5> :Gwrite<CR>
+nnoremap <F5> :Git write<CR>
 nnoremap <F6> :Git add .<CR>
 nnoremap <F7> :Git commit<CR>
 nnoremap <F8> :Git push<CR>
 nnoremap <F9> :Git blame<CR>
 
-" fast instart/delete emptylines
-nnoremap <leader>j o<Esc>k
-nnoremap <leader>k O<Esc>j
+" RSpec.vim mappings
+map <Leader>c :call RunCurrentSpecFile()<CR>
 
-" show buffers
-nnoremap <Leader>bb :Buffers<CR>:buffer<Space>
+" repeat last script
+nnoremap <Enter> @@
+
+" fast switch between last two files in buffer
+noremap <Leader><Leader> <C-^>
+" show current file path
+nnoremap <Leader>e :echo expand('%')<CR>
+" quit from the file
+nnoremap <Leader>q :quit<CR>
+" save file
+nnoremap <Leader>w :write<CR>
+" show current file path
+nnoremap <Leader>v o<C-r>0<Esc>
+nnoremap <Leader>V O<C-r>0<Esc>
+" show buffers :buffer<Space>
+nnoremap <Leader>bb :Buffers<CR>
 nnoremap <Leader>bn :bnext<CR>
 nnoremap <Leader>bv :bprevious<CR>
 
+nnoremap <Leader>x :xit<CR>
+" open terminal
+nnoremap <Leader>t :terminal<CR>
 
-" Coc settings
-let g:coc_global_extensions = [ 'coc-solargraph', 'coc-highlight', 'coc-css', 'coc-eslint', 'coc-html', 'coc-pairs', 'coc-prettier', 'coc-angular', 'coc-tsserver']
+" update Ctags
+nmap <silent> <C-G> :!ctags -R .<cr>
 
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-if has('folding')
-  if has('windows')
-    set fillchars=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
-  endif
-endif
+"NERD Tree helpers
+let g:nerdtree_tabs_open_on_console_startup=1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeWinSize = 40
+let g:NERDTreeDirArrows = 0
+let g:nerdtree_tabs_focus_on_files = 1
+let g:nerdtree_tabs_autoclose = 1
+
+"FZF helpers
+let g:fzf_layout = { 'down':  '40%'}
+
+noremap <F2> :NERDTreeToggle<CR>
+nnoremap <F3> :NERDTreeFind<CR>
+
+" remap zero to go to start of code line
+nnoremap 0 ^
+nnoremap ^ 0
+
+" Make yank similar behavier
+noremap Y y$
+
+" Store relative line number jumps in the jumplist if they exceed a threshold.
+nnoremap <expr> k (v:count > 1 ? "m'" . v:count : '') . 'k'
+nnoremap <expr> j (v:count > 1 ? "m'" . v:count : '') . 'j'
+
+" Remove typo mistakes
+nnoremap K <nop>
+nnoremap Q <nop>
+
+" line identation
+nnoremap == <S-v>=
+
+" substition helpers
+nnoremap <leader>sub yiw:%s/<C-r>0//g<left><left>
+vnoremap <leader>sub :s///g<left><left><left>
+nnoremap c* *Ncgn
 
 " Ack search settings
 if executable('ag')
   " need to install -->  sudo apt-get install silversearcher-ag
   let g:ackprg = 'ag --vimgrep'
 endif
+
 cnoreabbrev Ack Ack!
 nnoremap <Leader>ff :Ack!<Space>
 nnoremap <Leader>fw yiw:Ack! <C-r>0
-
-" FZF settings
-let g:fzf_layout = { 'down':  '40%'}
-let g:fzf_preview_window = ''
+"fzf
 noremap <C-p> :GFiles<Cr>
+let g:fzf_preview_window = ''
+
+" to use fast shich splited windows
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+nnoremap <C-T> <C-W><S-T>
+" nnoremap gf <C-W>v<C-W><C-L>gf
+nnoremap g] <C-W>g]
+" resize current buffer by +/- 5
+nnoremap <C-right> :vertical resize +3<cr>
+nnoremap <C-down> :resize +3<cr>
+nnoremap <C-up> :resize -3<cr>
+nnoremap <C-left> :vertical resize -3<cr>
+
+" fast instart/delete emptylines
+nnoremap <leader>j o<Esc>k
+nnoremap <leader>k O<Esc>j
 
 
 " change CamlCase to under_scores
@@ -232,6 +298,19 @@ function! ToCamlCase() range
   s#\(\%(\<\l\+\)\%(_\)\@=\)\|_\(\l\)#\u\1\2#g
 endfunction
 noremap <leader>camel :call ToCamlCase()<CR>
+
+" easy marks buffer
+function! Marks()
+  marks abcdefghijklmnopqrstuvwxyz.
+
+  echo 'Jump to mark: '
+
+  let marks = nr2char(getchar())
+  redraw
+
+  execute 'normal! `' . marks
+endfunction
+noremap <leader>m :call Marks()<CR>
 
 function! PutDebugger()
   if &ft=='ruby'
